@@ -309,8 +309,8 @@ def run_sdm(temperatures_list,epoch_index,elevations,body_size_list,body_size_in
         _annual_energy = convert_to_annual2(sal.energy_grid,_annual_energy,month)
     annual_activity = convert_to_daily_average(_annual_activity)
     annual_energy = convert_to_daily_average(_annual_energy)
-    annual_energy_file = 'green_salamander_project/energy/annual_energy'+'_depth'+str(depth_list[depth_index])+'_threshold'+str(threshold_list[threshold_index])+'_mass'+str(body_size_list[body_size_index])+'_rs'+str(ri_list[ri_index][0])+'_acc'+str(list_of_acclimation_status[r_s])+'_epoch'+str(list_of_epochs[epoch])+'_humidity'+str(humidity_list[humidity_index])+'new.asc'
-    annual_activity_file = 'green_salamander_project/activity/annual_activity'+'_depth'+str(depth_list[depth_index])+'_threshold'+str(threshold_list[threshold_index])+'_mass'+str(body_size_list[body_size_index])+'_rs'+str(ri_list[ri_index][0])+'_acc'+str(list_of_acclimation_status[r_s])+'_epoch'+str(list_of_epochs[epoch])+'_humidity'+str(humidity_list[humidity_index])+'new.asc'
+    annual_energy_file = 'your_path_here/annual_energy'+'_depth'+str(depth_list[depth_index])+'_threshold'+str(threshold_list[threshold_index])+'_mass'+str(body_size_list[body_size_index])+'_rs'+str(ri_list[ri_index][0])+'_acc'+str(list_of_acclimation_status[r_s])+'_epoch'+str(list_of_epochs[epoch])+'_humidity'+str(humidity_list[humidity_index])+'new.asc'
+    annual_activity_file = 'your_path_here/annual_activity'+'_depth'+str(depth_list[depth_index])+'_threshold'+str(threshold_list[threshold_index])+'_mass'+str(body_size_list[body_size_index])+'_rs'+str(ri_list[ri_index][0])+'_acc'+str(list_of_acclimation_status[r_s])+'_epoch'+str(list_of_epochs[epoch])+'_humidity'+str(humidity_list[humidity_index])+'new.asc'
     annual_energy_int = convert_to_integer(annual_energy)
     annual_activity_int = convert_to_integer(annual_activity)
     make_and_export_grid(annual_energy_int,annual_energy_file,header)
@@ -323,8 +323,8 @@ def run_sdm(temperatures_list,epoch_index,elevations,body_size_list,body_size_in
     temporary_dataframe_annual = pandas.DataFrame([[depth_list[depth_index],threshold_list[threshold_index],body_size_list[body_size_index],ri_list[ri_index][0],list_of_acclimation_status[r_s],list_of_epochs[epoch],humidity_list[humidity_index],mean(ignore_value_for_mean(annual_activity,-9999)),std(ignore_value_for_mean(annual_activity,-9999)),IUCN_annual_activity[0],IUCN_annual_activity[1],captures_annual_activity[0],captures_annual_activity[1],mean(ignore_value_for_mean(annual_energy,-9999)),std(ignore_value_for_mean(annual_energy,-9999)),IUCN_annual_energy[0],IUCN_annual_energy[1],captures_annual_energy[0],captures_annual_energy[1],return_positive_energy(annual_energy),return_positive_energy(return_values_from_coords(annual_energy,IUCN)),return_positive_energy(return_values_from_coords(annual_energy,captures)),extinct_in_range(annual_energy,IUCN),mean(annual_Teh_active_no_zeros),mean(annual_Teh_inactive),mean(annual_Teh_total)]],columns = ['depth','threshold','body_size','skin_resistance','acclimation_status','epoch','humidity','mean_activity','sd_activity','IUCN_activity','sd_IUCN_activity','captures_activity','sd_captures_activity','mean_energy','sd_energy','IUCN_energy','sd_IUCN_energy','captures_energy','sd_captures_energy','%_positive_energy','%_positive_IUCN','%_positive_captures','extinct_in_range','Teh_active','Teh_inactive','Teh_total'])
     global annual_results
     annual_results = annual_results.append(temporary_dataframe_annual)
-    results.to_csv('green_salamander_project/results/climate_data_results_new.csv')
-    annual_results.to_csv('green_salamander_project/results/annual_climate_data_results_new.csv')
+    results.to_csv('your_path_here/climate_data_results.csv')
+    annual_results.to_csv('your_path_here/annual_climate_data_results_new.csv')
 
         
     
@@ -541,13 +541,13 @@ class Individual():
 temperatures = []
 
 #compile temperature data
-#working directory: manuscripts
-temperatures.append(create_env_lists('green_salamander_project/climate_data/current/*.asc'))
-temperatures.append(create_env_lists('green_salamander_project/climate_data/future/cc/*.asc'))
-temperatures.append(create_env_lists('green_salamander_project/climate_data/future/hg/*.asc'))
+#working directory: manuscripts, each append function is for a different climate simulation
+temperatures.append(create_env_lists('your_path_here'))
+temperatures.append(create_env_lists('your_path_here'))
+temperatures.append(create_env_lists('your_path_here'))
 
 #create elevation values from digital elevation map
-dem = open('green_salamander_project/dem_asc.asc')
+dem = open('your_path_here')
 dem_0 = dem.readlines()
 for i in range(6):
     dem_0.pop(0)
@@ -563,8 +563,9 @@ for i in range(len(elev)):
         elev[i][j] = float(elev[i][j])
         
 #read coords from captures
-IUCN = list(itertools.chain.from_iterable(read_coordinates('green_salamander_project/dem_asc.asc')))
-captures = list(itertools.chain.from_iterable(read_coordinates('green_salamander_project/dem_asc.asc')))
+'for these maps below, providing a digital elevation map (.asc) of the study area is appropriate'
+IUCN = list(itertools.chain.from_iterable(read_coordinates('your_path_here')))
+captures = list(itertools.chain.from_iterable(read_coordinates('your_path_here')))
 
 #run model for body sizes, skin resistances, epochs, and humidities
 list_of_acclimation_status = ['nac','yac']
