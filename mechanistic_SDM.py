@@ -1,4 +1,3 @@
-```python
 'The following script using monthly averages of temperature data to simulate activity and energetics of a green salamander (Aneides aeneus)'
 #-------- LIBRARIES---------#
 
@@ -588,4 +587,4 @@ for epoch in range(len(temperatures)):
                         run_sdm(temperatures,epoch,elev,list_of_sizes,body_size,list_of_resistances,r_s,list_of_thresholds,threshold,list_of_humidities,humidity,list_of_depths,depth)
                         counter += 1.0
 print('Your simulation is complete')
-```
+
